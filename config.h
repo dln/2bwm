@@ -1,3 +1,5 @@
+#include "X11/XF86keysym.h"
+
 ///---User configurable stuff---///
 ///---Modifiers---///
 #define MOD             XCB_MOD_MASK_4       /* Super/Windows key  or check xmodmap(1) with -pm  defined in /usr/include/xcb/xproto.h */
@@ -32,7 +34,7 @@ static const bool inverted_colors = true;
 /*0) Outer border size. If you put this negative it will be a square.
  *1) Full borderwidth    2) Magnet border size
  *3) Resize border size  */
-static const uint8_t borders[] = {3,5,5,4};
+static const uint8_t borders[] = {1,2,2,4};
 /* Windows that won't have a border.
  * It uses substring comparison with what is found in the WM_NAME
  * attribute of the window. You can test this using `xprop WM_NAME`
@@ -40,7 +42,15 @@ static const uint8_t borders[] = {3,5,5,4};
 #define LOOK_INTO "WM_NAME"
 static const char *ignore_names[] = {"bar", "xclock"};
 ///--Menus and Programs---///
-static const char *menucmd[]   = { "", NULL };
+static const char *menucmd[]        = { "rofi", "-show", "run", NULL };
+static const char *termcmd[]        = { "alacritty", NULL };
+static const char *statuscmd[]      = { "notify-status", NULL };
+static const char *lockcmd[]        = { "i3lock", "-c", "071018", NULL };
+static const char *brightdeccmd[]   = { "xbacklight", "-dec", "4", NULL };
+static const char *brightinccmd[]   = { "xbacklight", "-inc", "4", NULL };
+static const char *volinccmd[]      = { "amixer", "-q", "sset", "Master", "4%+", NULL };
+static const char *voldeccmd[]      = { "amixer", "-q", "sset", "Master", "4%-", NULL };
+static const char *togglemutecmd[]  = { "amixer", "-q", "sset", "Master", "toggle", NULL };
 ///--Custom foo---///
 static void halfandcentered(const Arg *arg)
 {
@@ -179,6 +189,15 @@ static key keys[] = {
     {  MOD |SHIFT,        XK_Left,       cursor_move,       {.i=TWOBWM_CURSOR_LEFT}},
     // Start programs
     {  MOD ,              XK_w,          start,             {.com = menucmd}},
+    {  MOD ,              XK_p,          start,             {.com = menucmd}},
+    {  MOD |ALT,          XK_l,          start,             {.com = lockcmd}},
+    {  MOD ,              XK_Return,     start,             {.com = termcmd}},
+    {  MOD ,              XK_backslash,  start,             {.com = statuscmd}},
+    {  0,                 XF86XK_MonBrightnessUp,   start,  {.com = brightinccmd }},
+    {  0,                 XF86XK_MonBrightnessDown, start,  {.com = brightdeccmd }},
+    {  0,                 XF86XK_AudioRaiseVolume,  start,  {.com = volinccmd }},
+    {  0,                 XF86XK_AudioLowerVolume,  start,  {.com = voldeccmd }},
+    {  0,                 XF86XK_AudioMute,         start,  {.com = togglemutecmd }},
     // Exit or restart 2bwm
     {  MOD |CONTROL,      XK_q,          twobwm_exit,       {.i=0}},
     {  MOD |CONTROL,      XK_r,          twobwm_restart,    {.i=0}},
@@ -194,6 +213,26 @@ static key keys[] = {
        DESKTOPCHANGE(     XK_8,                             7)
        DESKTOPCHANGE(     XK_9,                             8)
        DESKTOPCHANGE(     XK_0,                             9)
+    {  0,                 XK_F1,         changeworkspace,   {.i=0}},
+    {  0,                 XK_F2,         changeworkspace,   {.i=1}},
+    {  0,                 XK_F3,         changeworkspace,   {.i=2}},
+    {  0,                 XK_F4,         changeworkspace,   {.i=3}},
+    {  0,                 XK_F5,         changeworkspace,   {.i=4}},
+    {  0,                 XK_F6,         changeworkspace,   {.i=5}},
+    {  0,                 XK_F7,         changeworkspace,   {.i=6}},
+    {  0,                 XK_F8,         changeworkspace,   {.i=7}},
+    {  0,                 XK_F9,         changeworkspace,   {.i=8}},
+    {  0,                 XK_F10,        changeworkspace,   {.i=9}},
+    {  MOD,               XK_F1,         sendtoworkspace,   {.i=0}},
+    {  MOD,               XK_F2,         sendtoworkspace,   {.i=1}},
+    {  MOD,               XK_F3,         sendtoworkspace,   {.i=2}},
+    {  MOD,               XK_F4,         sendtoworkspace,   {.i=3}},
+    {  MOD,               XK_F5,         sendtoworkspace,   {.i=4}},
+    {  MOD,               XK_F6,         sendtoworkspace,   {.i=5}},
+    {  MOD,               XK_F7,         sendtoworkspace,   {.i=6}},
+    {  MOD,               XK_F8,         sendtoworkspace,   {.i=7}},
+    {  MOD,               XK_F9,         sendtoworkspace,   {.i=8}},
+    {  MOD,               XK_F10,        sendtoworkspace,   {.i=9}},
 };
 // the last argument makes it a root window only event
 static Button buttons[] = {
