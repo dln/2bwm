@@ -50,9 +50,9 @@ static const char *statuscmd[]      = { "notify-status", NULL };
 static const char *lockcmd[]        = { "i3lock", "-c", "071018", NULL };
 static const char *brightdeccmd[]   = { "xbacklight", "-dec", "4", NULL };
 static const char *brightinccmd[]   = { "xbacklight", "-inc", "4", NULL };
-static const char *volinccmd[]      = { "amixer", "-q", "sset", "Master", "4%+", NULL };
-static const char *voldeccmd[]      = { "amixer", "-q", "sset", "Master", "4%-", NULL };
-static const char *togglemutecmd[]  = { "amixer", "-q", "sset", "Master", "toggle", NULL };
+static const char *volinccmd[]      = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+4%", NULL };
+static const char *voldeccmd[]      = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-4%", NULL };
+static const char *togglemutecmd[]  = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
 ///--Custom foo---///
 static void halfandcentered(const Arg *arg)
 {
