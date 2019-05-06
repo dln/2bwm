@@ -2181,7 +2181,7 @@ maxhalf(const Arg *arg)
 		} else {
 			focuswin->y      =  mon_y;
 			focuswin->height =  mon_height - (conf.borderwidth * 2);
-			focuswin->width  = ((float)(mon_width) / 2)
+			focuswin->width  = ((float)(mon_width) / 1.3)
 				- (conf.borderwidth * 2);
 
 			if (arg->i== TWOBWM_MAXHALF_VERTICAL_LEFT)

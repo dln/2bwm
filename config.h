@@ -21,7 +21,8 @@ static const uint8_t offsets[] = {0,0,0,0};
  *2)fixedcol         3)unkilcol
  *4)fixedunkilcol    5)outerbordercol
  *6)emptycol         */
-static const char *colors[] = {"#35586c","#333333","#7a8c5c","#ff6666","#cc9933","#0d131a","#000000"};
+// static const char *colors[] = {"#35586c","#333333","#7a8c5c","#ff6666","#cc9933","#0d131a","#000000"};
+static const char *colors[] = {"#ff0000","#000000","#7a8c5c","#ff6666","#cc9933","#ffffff","#000000"};
 /* if this is set to true the inner border and outer borders colors will be swapped */
 static const bool inverted_colors = true;
 ///---Cursor---///
@@ -34,13 +35,14 @@ static const bool inverted_colors = true;
 /*0) Outer border size. If you put this negative it will be a square.
  *1) Full borderwidth    2) Magnet border size
  *3) Resize border size  */
-static const uint8_t borders[] = {1,2,2,4};
+// static const uint8_t borders[] = {1,2,2,4};
+static const uint8_t borders[] = {2,4,4,3};
 /* Windows that won't have a border.
  * It uses substring comparison with what is found in the WM_NAME
  * attribute of the window. You can test this using `xprop WM_NAME`
  */
 #define LOOK_INTO "WM_NAME"
-static const char *ignore_names[] = {"bar", "xclock"};
+static const char *ignore_names[] = {"Google Chrome", "Alacritty"};
 ///--Menus and Programs---///
 static const char *menucmd[]        = { "rofi", "-show", "run", NULL };
 static const char *termcmd[]        = { "alacritty", NULL };
@@ -199,9 +201,9 @@ static key keys[] = {
     {  0,                 XF86XK_AudioLowerVolume,  start,  {.com = voldeccmd }},
     {  0,                 XF86XK_AudioMute,         start,  {.com = togglemutecmd }},
     // Exit or restart 2bwm
-    {  MOD |CONTROL,      XK_q,          twobwm_exit,       {.i=0}},
-    {  MOD |CONTROL,      XK_r,          twobwm_restart,    {.i=0}},
-    {  MOD ,              XK_space,      halfandcentered,   {.i=0}},
+    {  MOD |SHIFT,      XK_q,          twobwm_exit,       {.i=0}},
+    {  MOD |SHIFT,      XK_r,          twobwm_restart,    {.i=0}},
+    {  MOD ,            XK_space,      halfandcentered,   {.i=0}},
     // Change current workspace
        DESKTOPCHANGE(     XK_1,                             0)
        DESKTOPCHANGE(     XK_2,                             1)
@@ -223,16 +225,16 @@ static key keys[] = {
     {  0,                 XK_F8,         changeworkspace,   {.i=7}},
     {  0,                 XK_F9,         changeworkspace,   {.i=8}},
     {  0,                 XK_F10,        changeworkspace,   {.i=9}},
-    {  MOD,               XK_F1,         sendtoworkspace,   {.i=0}},
-    {  MOD,               XK_F2,         sendtoworkspace,   {.i=1}},
-    {  MOD,               XK_F3,         sendtoworkspace,   {.i=2}},
-    {  MOD,               XK_F4,         sendtoworkspace,   {.i=3}},
-    {  MOD,               XK_F5,         sendtoworkspace,   {.i=4}},
-    {  MOD,               XK_F6,         sendtoworkspace,   {.i=5}},
-    {  MOD,               XK_F7,         sendtoworkspace,   {.i=6}},
-    {  MOD,               XK_F8,         sendtoworkspace,   {.i=7}},
-    {  MOD,               XK_F9,         sendtoworkspace,   {.i=8}},
-    {  MOD,               XK_F10,        sendtoworkspace,   {.i=9}},
+    {  SHIFT,             XK_F1,         sendtoworkspace,   {.i=0}},
+    {  SHIFT,             XK_F2,         sendtoworkspace,   {.i=1}},
+    {  SHIFT,             XK_F3,         sendtoworkspace,   {.i=2}},
+    {  SHIFT,             XK_F4,         sendtoworkspace,   {.i=3}},
+    {  SHIFT,             XK_F5,         sendtoworkspace,   {.i=4}},
+    {  SHIFT,             XK_F6,         sendtoworkspace,   {.i=5}},
+    {  SHIFT,             XK_F7,         sendtoworkspace,   {.i=6}},
+    {  SHIFT,             XK_F8,         sendtoworkspace,   {.i=7}},
+    {  SHIFT,             XK_F9,         sendtoworkspace,   {.i=8}},
+    {  SHIFT,             XK_F10,        sendtoworkspace,   {.i=9}},
 };
 // the last argument makes it a root window only event
 static Button buttons[] = {
